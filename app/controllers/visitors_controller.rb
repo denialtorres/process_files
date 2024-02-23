@@ -57,6 +57,12 @@ class VisitorsController < ApplicationController
     end
   end
 
+  # GET /visitors/import
+  # POST /visitors/import
+  def import
+    ImportService.call(Visitor, params[:file]) if request.post?
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_visitor
