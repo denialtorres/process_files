@@ -1,5 +1,5 @@
 class VisitorsController < ApplicationController
-  before_action :set_visitor, only: %i[ show edit update destroy ]
+  before_action :set_visitor, only: %i[show edit update destroy]
 
   # GET /visitors or /visitors.json
   def index
@@ -7,8 +7,7 @@ class VisitorsController < ApplicationController
   end
 
   # GET /visitors/1 or /visitors/1.json
-  def show
-  end
+  def show; end
 
   # GET /visitors/new
   def new
@@ -16,8 +15,7 @@ class VisitorsController < ApplicationController
   end
 
   # GET /visitors/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /visitors or /visitors.json
   def create
@@ -25,7 +23,7 @@ class VisitorsController < ApplicationController
 
     respond_to do |format|
       if @visitor.save
-        format.html { redirect_to visitor_url(@visitor), notice: "Visitor was successfully created." }
+        format.html { redirect_to visitor_url(@visitor), notice: 'Visitor was successfully created.' }
         format.json { render :show, status: :created, location: @visitor }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +36,7 @@ class VisitorsController < ApplicationController
   def update
     respond_to do |format|
       if @visitor.update(visitor_params)
-        format.html { redirect_to visitor_url(@visitor), notice: "Visitor was successfully updated." }
+        format.html { redirect_to visitor_url(@visitor), notice: 'Visitor was successfully updated.' }
         format.json { render :show, status: :ok, location: @visitor }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +50,7 @@ class VisitorsController < ApplicationController
     @visitor.destroy
 
     respond_to do |format|
-      format.html { redirect_to visitors_url, notice: "Visitor was successfully destroyed." }
+      format.html { redirect_to visitors_url, notice: 'Visitor was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -68,14 +66,20 @@ class VisitorsController < ApplicationController
     # report.pretty_print(to_file: 'memory_profile_report.txt')
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_visitor
-      @visitor = Visitor.find(params[:id])
-    end
+  # POST /visitors/export
+  def export
+    send_data ExportService.call(Visitor, %i[name cpf]), filename: "visitors-#{Date.today}.csv"
+  end
 
-    # Only allow a list of trusted parameters through.
-    def visitor_params
-      params.require(:visitor).permit(:name, :cpf)
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_visitor
+    @visitor = Visitor.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def visitor_params
+    params.require(:visitor).permit(:name, :cpf)
+  end
 end
