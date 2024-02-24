@@ -60,7 +60,7 @@ class VisitorsController < ApplicationController
   # GET /visitors/import
   # POST /visitors/import
   def import
-    ImportService.call(Visitor, params[:file]) if request.post?
+    @service = ImportService.call(Visitor, params[:file]) if request.post?
     # report = MemoryProfiler.report do
     #   ImportService.call(Visitor, params[:file]) if request.post?
     # end
