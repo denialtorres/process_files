@@ -61,6 +61,11 @@ class VisitorsController < ApplicationController
   # POST /visitors/import
   def import
     ImportService.call(Visitor, params[:file]) if request.post?
+    # report = MemoryProfiler.report do
+    #   ImportService.call(Visitor, params[:file]) if request.post?
+    # end
+    #
+    # report.pretty_print(to_file: 'memory_profile_report.txt')
   end
 
   private

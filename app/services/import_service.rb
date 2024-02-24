@@ -7,7 +7,8 @@ class ImportService < ApplicationService
   end
 
   def call
-    csv = CSV.read(@file, headers: true)
+    csv = CSV.open(@file.tempfile, headers: true)
+    # csv = CSV.read(@file, headers: true)
 
     csv.each_with_index do |row, _index|
       @record = @model.new(row.to_hash)
