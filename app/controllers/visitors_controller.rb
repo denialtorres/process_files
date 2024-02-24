@@ -71,6 +71,12 @@ class VisitorsController < ApplicationController
     send_data ExportService.call(Visitor, %i[name cpf]), filename: "visitors-#{Date.today}.csv"
   end
 
+  # POST /visitors/delete_all
+  def delete_all
+    Visitor.delete_all
+    redirect_to visitors_url, notice: 'All visitors were successfully destroyed.'
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
