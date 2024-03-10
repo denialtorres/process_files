@@ -15,7 +15,6 @@ x-base: &base
 services:
   app:
     <<: *base
-    command: bin/dev
     restart: on-failure
     volumes:
       - .:/app:cached

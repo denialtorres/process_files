@@ -24,4 +24,4 @@ RUN bundle lock --add-platform ruby
 RUN bundle lock --add-platform x86_64-linux
 RUN bundle install -j $(nproc)
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
