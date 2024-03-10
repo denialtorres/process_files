@@ -1,0 +1,27 @@
+FROM ruby:3.2.2
+
+ENV RAILS_ENV=development
+
+RUN apt update -qq && \
+  apt install -y --no-install-recommends build-essential libpq-dev curl && \
+  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg -o /root/yarn-pubkey.gpg && \
+  apt-key add /root/yarn-pubkey.gpg && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+  apt update && \
+  apt install -y --no-install-recommends nodejs yarn && \
+  apt clean && rm -rf /var/lib/apt/lists/*
+
+# Install rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+
+WORKDIR /app
+
+COPY Gemfile* ./
+
+RUN bundle lock --add-platform ruby
+RUN bundle lock --add-platform x86_64-linux
+RUN bundle install -j $(nproc)
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
