@@ -3,12 +3,11 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: process_files
-  host: <%= ENV.fetch("DATABASE_HOST") %>
-  port: <%= ENV.fetch("DATABASE_PORT") %>
 
 development:
   <<: *default
   database: process_files_development
+  url: <%= ENV.fetch('DATABASE_URL') { "postgres://postgres:postgres@localhost/template_development" } %>
 
 test:
   <<: *default

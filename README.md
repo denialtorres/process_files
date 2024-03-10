@@ -1,24 +1,9 @@
-# README
+## README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+testing polars-rb from the console in a dockerized app
 
-Things you may want to cover:
 
-* Ruby version
+![Polars](https://i.imgur.com/LJEgaI2.png)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Notes:
+Include later `command: bin/dev` in the docker-compose
